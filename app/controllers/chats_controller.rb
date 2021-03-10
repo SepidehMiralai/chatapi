@@ -8,7 +8,7 @@ class ChatsController < ApplicationController
     chat = Chat.new(chat_params)
     if chat.save
       serialized_data = ActiveModelSerializers::Adapter::Json.new(
-        chatSerializer.new(chat)
+        ChatSerializer.new(chat)
       ).serializable_hash
       ActionCable.server.broadcast 'chats_channel', serialized_data
       head :ok
